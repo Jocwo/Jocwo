@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Generates trials json for the demo experiment."""
+"""Generates trials json for Task 2."""
 
 import json
 import random
 
-def emoji():
-    return random.choice('😀😃😄😁😆😅😂️😊😇🙂🙃😉😌😍😘😗😙😚😋😜😝😛🤑🤗🤓😎')
+#def scoreLabelOnState(): # 
+#    return random.choice('23452345678098756436') 
 
 def grid(size):
     
@@ -13,7 +13,7 @@ def grid(size):
     layout = {}
 
     def reward():
-        return random.randint(-9, 10)
+        return random.randint(-9, 10) # TODO change to increasing envirionment
     
     def state(x, y):
         name = '{}_{}'.format(x, y)
@@ -31,7 +31,7 @@ def grid(size):
     state(0, 0)
 
     return {
-        'stateLabels': {s: emoji() for s in layout},
+        #'stateLabels': {s: scoreLabelOnState() for s in layout},
         'graph': graph,
         'layout': layout,
         'initial': '0_0',
@@ -39,22 +39,29 @@ def grid(size):
 
 def grid_trials():
     yield {
-        **grid(2),
-        'centerMessage': '<b>Hover rewards</b>',
-        'edgeDisplay': 'hover',
-        'playerImage': 'static/images/oski.png',
-        'playerImageScale': 0.1
+        **grid(3),
+        'centerMessage': '<b>Trial 1</b>',
+        'edgeDisplay': False,
+        'stateDisplay': 'always',
+        'stateLabels': 'always',
+        'playerImage': 'static/images/uwe.png',
+        'initial': '0'
     }
     yield {
         **grid(3),
-        'centerMessage': '<b>Clickable states</b>',
+        'centerMessage': '<b>Trial 2</b>',
         'edgeDisplay': False,
-        'stateDisplay': 'click',
-        'playerImage': 'static/images/spider.png'
+        'stateDisplay': 'always',
+        'stateLabels': 'reward',
+        'playerImage': 'static/images/uwe.png'
     }
     yield {
-        'centerMessage': '<b>Fully observable</b>',
-        **grid(2),
+        **grid(3),
+        'centerMessage': '<b>Trial 3</b>',
+        'edgeDisplay': False,
+        'stateDisplay': 'always',
+        'stateLabels': 'reward',
+        'playerImage': 'static/images/uwe.png'
     }
 
 def fancy_trials():
@@ -62,11 +69,11 @@ def fancy_trials():
     yield {
         'graph': graph,
         'layout': layout,
-        # 'stateLabels': dict(zip(graph.keys(), graph.keys())),
+        #'stateLabels': dict(zip(graph.keys(), graph.keys())),
         'playerImageScale': 0.2,
         'size': 90,
         # 'stateRewards': {k: random.randint(-9, 9) for k in graph},
-        # 'stateLabels': 'reward',
+        'stateLabels': 'reward',
         'stateDisplay': 'click',
         'edgeDisplay': 'never',
         'initial': '0'

@@ -315,8 +315,17 @@ jsPsych.plugins['mouselab-mdp'] = (function() {
       return $('#mouselab-score').css('color', redGreen(this.data.score));
     };
 
+    MouselabMDP.prototype.hideScore = function(v) {
+      return $('#mouselab-score').css('visibility', 'hidden');
+    };
+
+    MouselabMDP.prototype.showScore = function(v) {
+      return $('#mouselab-score').css('visibility', 'visible');
+    };
+
     MouselabMDP.prototype.run = function() {
       LOG_DEBUG('run');
+      this.hideScore();
       this.buildMap();
       return fabric.Image.fromURL(this.playerImage, ((function(_this) {
         return function(img) {
@@ -367,7 +376,7 @@ jsPsych.plugins['mouselab-mdp'] = (function() {
         x = location[0], y = location[1];
         this.states[s] = this.draw(new State(s, x, y, {
           fill: '#bbb',
-          label: this.stateDisplay === 'always' ? this.stateLabels[s] : ''
+          label: this.stateDisplay === this.stateLabels[s]
         }));
       }
       ref2 = this.graph;
@@ -391,6 +400,7 @@ jsPsych.plugins['mouselab-mdp'] = (function() {
 
     MouselabMDP.prototype.endTrial = function() {
       this.lowerMessage.html("<b>Press any key to continue.</br>");
+      this.showScore();
       return this.keyListener = jsPsych.pluginAPI.getKeyboardResponse({
         valid_responses: [],
         rt_method: 'date',

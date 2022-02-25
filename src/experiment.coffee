@@ -46,9 +46,9 @@ initializeExperiment = (trials) ->
   welcome =
     type: 'text'
     text: """
-    <h1>Mouselab-MDP Demo</h1>
+    <h1>Mouselab-MDP Metacognitive Learning</h1>
 
-    This is a demonstration of the Mouselab-MDP plugin.
+    Task 2
     <p>
     Press <b>space</b> to continue.
 
@@ -84,7 +84,7 @@ initializeExperiment = (trials) ->
     size: 120  # determines the size of states, text, etc...
     leftMessage: 'Left Message'
     centerMessage: 'Center Message'
-
+  
 
 
 

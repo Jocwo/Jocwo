@@ -56,9 +56,9 @@ initializeExperiment = function(trials) {
   //  ============================== #
   welcome = {
     type: 'text',
-    text: `<h1>Mouselab-MDP Demo</h1>
+    text: `<h1>Mouselab-MDP Metacognitive Learning</h1>
 
-This is a demonstration of the Mouselab-MDP plugin.
+Task 2
 <p>
 Press <b>space</b> to continue.
 `

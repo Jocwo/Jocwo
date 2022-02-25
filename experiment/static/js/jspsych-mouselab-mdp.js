@@ -2,7 +2,7 @@
 
 /*
 jspsych-mouselab-mdp.coffee
-Fred Callaway
+Fred Callaway jbkbkbhdbcjhsbdjhjdhckshdhdbcdhbhdbshdhbhdbhbdhbcjhdjhcbuhdihciwheuiiuehdiuheiuhdiujsbsjbsj
 
 https://github.com/fredcallaway/Mouselab-MDP
  */
@@ -13,8 +13,6 @@ var mdp,
   hasProp = {}.hasOwnProperty;
 
 mdp = void 0;
-
-prevStates = []
 
 jsPsych.plugins['mouselab-mdp'] = (function() {
   var Arrow, Edge, KEYS, KEY_DESCRIPTION, LOG_DEBUG, LOG_INFO, MouselabMDP, NULL, PRINT, SIZE, State, TRIAL_INDEX, Text, angle, checkObj, dist, plugin, polarMove, redGreen, round;
@@ -184,25 +182,6 @@ jsPsych.plugins['mouselab-mdp'] = (function() {
     }
 
     MouselabMDP.prototype.handleKey = function(s0, a) {
-
-      // show the reward
-
-      prevStates.push(s0);
-
-      if(prevStates.length>1){
-
-        ref1 = this.layout;
-        prevState = prevStates[prevStates.length-2]
-        location_ = ref1[prevState];
-        x = location_[0], y = location_[1];
-
-        this.draw(new State(prevStates, x, y, {
-            label: this.stateLabels[prevState]
-        }));
-      }
-
-      //////
-
       var r, ref, s1, s1g;
       LOG_DEBUG('handleKey', s0, a);
       this.data.actions.push(a);
@@ -428,7 +407,6 @@ jsPsych.plugins['mouselab-mdp'] = (function() {
 
     MouselabMDP.prototype.checkFinished = function() {
       if (this.complete) {
-        prevStates = []
         return this.endTrial();
       }
     };

@@ -1,37 +1,49 @@
 #!/usr/bin/env python3
-"""Generates trials json for Task 2."""
+"""Generates trials json for the demo experiment."""
 
 import json
 import random
 
-#def scoreLabelOnState(): # 
-#    return random.choice('23452345678098756436') 
+
+def emoji():
+    return random.choice('😀😃😄😁😆😅😂️😊😇🙂🙃😉😌😍😘😗😙😚😋😜😝😛🤑🤗🤓😎')
 
 def grid(size):
     
     graph = {}
     layout = {}
 
-    def reward():
-        return random.randint(-9, 10) # TODO change to increasing envirionment
+    def reward(x,y):
+
+        rewardsArr = [ 
+            [0 , 2 , -4, -48],
+            [-2 , 8 , 24, 8],
+            [-4 , -24 , -4, -2],
+            [48 , 8 , 2, 0]
+        ]
+
+        return rewardsArr[x][y]
     
+    rewardDict = {}
     def state(x, y):
         name = '{}_{}'.format(x, y)
         if name in graph:
             return name
 
+        rewardDict[name] = reward(x,y)
+
         graph[name] = {}
         layout[name] = [x, y]
         if y < size:
-            graph[name]['down'] = [reward(), state(x, y+1)]
+            graph[name]['down'] = [reward(x,y), state(x, y+1)]
         if x < size:
-            graph[name]['right'] = [reward(), state(x+1, y)]
+            graph[name]['right'] = [reward(x,y), state(x+1, y)]
         return name
 
     state(0, 0)
 
     return {
-        #'stateLabels': {s: scoreLabelOnState() for s in layout},
+        'stateLabels': rewardDict,
         'graph': graph,
         'layout': layout,
         'initial': '0_0',
@@ -40,28 +52,9 @@ def grid(size):
 def grid_trials():
     yield {
         **grid(3),
-        'centerMessage': '<b>Trial 1</b>',
-        'edgeDisplay': False,
-        'stateDisplay': 'always',
-        'stateLabels': 'always',
-        'playerImage': 'static/images/uwe.png',
-        'initial': '0'
-    }
-    yield {
-        **grid(3),
-        'centerMessage': '<b>Trial 2</b>',
-        'edgeDisplay': False,
-        'stateDisplay': 'always',
-        'stateLabels': 'reward',
-        'playerImage': 'static/images/uwe.png'
-    }
-    yield {
-        **grid(3),
-        'centerMessage': '<b>Trial 3</b>',
-        'edgeDisplay': False,
-        'stateDisplay': 'always',
-        'stateLabels': 'reward',
-        'playerImage': 'static/images/uwe.png'
+        'centerMessage': '<b>Headline</b>',
+        'stateDisplay': 'never',
+        'edgeDisplay': 'never',
     }
 
 def fancy_trials():
@@ -69,12 +62,12 @@ def fancy_trials():
     yield {
         'graph': graph,
         'layout': layout,
-        #'stateLabels': dict(zip(graph.keys(), graph.keys())),
+        # 'stateLabels': dict(zip(graph.keys(), graph.keys())),
         'playerImageScale': 0.2,
         'size': 90,
         # 'stateRewards': {k: random.randint(-9, 9) for k in graph},
         'stateLabels': 'reward',
-        'stateDisplay': 'click',
+        'stateDisplay': 'never',
         'edgeDisplay': 'never',
         'initial': '0'
     }
